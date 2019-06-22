@@ -1,0 +1,80 @@
+﻿{% extends 'posts/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% block content %}
+
+
+            <!-- ============= Post Content Area ============= -->
+            <div class="col-12 col-lg-8">
+                <div class="single-blog-content mb-100">
+                    <!-- Post Meta -->
+                    <div class="post-meta">
+                        <p><a href="#" class="post-author">{{post.author}}</a> on <a href="#" class="post-date">{{post.created_date}}</a></p>
+                    </div>
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        <h5>{{post.title}}</h5>
+                        <h6>{{post.text}}</h6>
+                        <!-- Post Meta -->
+                        <div class="post-meta second-part">
+                            <br />
+                            {% if user.is_authenticated and user == post.author %}
+                            <a href="{% url 'post_edit' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Edit</a>
+                            <a href="{% url 'post_remove' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Delete</a>
+                            {% endif %}
+                            <a href="{% url 'add_comment_to_post' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Reply</a>
+                        </div>
+                    </div>
+                    {% for comment in comments %}
+                    {% if user.is_authenticated or comment.approved_comment %}
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <!-- Comment Area Start -->
+                            <div class="comment_area clearfix mt-70">
+                                <ol>
+                                    <!-- Single Comment Area -->
+                                    <li class="single_comment_area">
+                                        <!-- Comment Content -->
+                                        <div class="comment-content">
+                                            <!-- Comment Meta -->
+                                            <div class="comment-meta d-flex align-items-center justify-content-between">
+                                                <p><a href="#" class="post-author">{{comment.author}}</a> on <a href="#" class="post-date">{{comment.created_date}}</a></p>
+                                                <a href="{% url 'add_comment_to_post' pk=post.pk slug=post.slug%}" class="comment-reply btn world-btn">Reply</a>
+                                            </div>
+                                            <p>{{comment.text}}</p>
+                                            <br />
+                                            {% if user.is_authenticated and user == comment.author %}
+                                            <a href="{% url 'comment_remove' pk=comment.pk slug=post.slug %}" class="comment-reply btn world-btn">Delete</a>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% empty %}
+                    {% endfor %}
+
+                </div>
+            </div>
+
+
+
+
+        <!-- ============== Related Post ============== -->
+
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <!-- Comment Area Start -->
+
+
+            </div>
+        </div>
+
+{% endblock %}
+</html>

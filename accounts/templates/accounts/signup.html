@@ -1,4 +1,4 @@
-{% extends 'posts/index.html' %}
+{% extends "posts/index.html" %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -21,29 +21,25 @@
 
 </head>
 
+
+
+
 {% block content %}
 <div class="col-12 col-lg-8">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="title">Reply</li>
+        <li class="title">Sign Up</li>
     </ul>
     <div class="post-a-comment-area mt-70">
-        <!-- Contact Form -->
-        <form action="#" method="POST">
+        <form method="post">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-12">
-                    <div class="group">
-                        {{form.text.help_text}}
-                        {{form.text}}
-                    </div>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn world-btn">Reply</button>
-                </div>
-            </div>
+            {{ form.as_p }}
+            <button type="submit">Sign up</button>
         </form>
+
     </div>
 </div>
 {% endblock %}
+
+
 
 </html>

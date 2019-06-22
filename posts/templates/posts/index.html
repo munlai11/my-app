@@ -49,8 +49,8 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="index.html">Home</a>
-                                        <a class="dropdown-item" href="catagory.html">Catagory</a>
-                                        <a class="dropdown-item" href="single-blog.html">Single Blog</a>
+                                        <a class="dropdown-item" href="{% url 'category_list' %}">Categories</a>
+                                        <a class="dropdown-item" href="{% url 'post_new' %}">New Post</a>
                                         <a class="dropdown-item" href="regular-page.html">Regular Page</a>
                                         <a class="dropdown-item" href="contact.html">Contact</a>
                                     </div>
@@ -62,11 +62,19 @@
                                     <a class="nav-link" href="#">Lifestyle</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Video</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="#">Contact</a>
                                 </li>
+                                {% if user.is_authenticated %}
+                                <a class="nav-link" href="">{{user}}</a>
+                                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                                {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                </li>
+                                {% endif %}
                             </ul>
                             <!-- Search Form  -->
                             <div id="search-wrapper">
@@ -148,496 +156,14 @@
         <div class="container">
             <div class="row justify-content-center">
                 <!-- ============= Post Content Area Start ============= -->
-                <div class="col-12 col-lg-8">
-                    <div class="post-content-area mb-50">
-                        <!-- Catagory Area -->
-                        <div class="world-catagory-area">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="title">Explore</li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#world-tab-1" role="tab" aria-controls="world-tab-1" aria-selected="true">All</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab2" data-toggle="tab" href="#world-tab-2" role="tab" aria-controls="world-tab-2" aria-selected="false">Banking</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab3" data-toggle="tab" href="#world-tab-3" role="tab" aria-controls="world-tab-3" aria-selected="false">Consulting</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab4" data-toggle="tab" href="#world-tab-4" role="tab" aria-controls="world-tab-4" aria-selected="false">Engineering</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab5" data-toggle="tab" href="#world-tab-5" role="tab" aria-controls="world-tab-5" aria-selected="false">Law</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab6" data-toggle="tab" href="#world-tab-6" role="tab" aria-controls="world-tab-6" aria-selected="false">Healthcare</a>
-                                </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
-                                    <div class="dropdown-menu">
-                                        <a class="nav-link" id="tab7" data-toggle="tab" href="#world-tab-7" role="tab" aria-controls="world-tab-7" aria-selected="false">Sport</a>
-                                        <a class="nav-link" id="tab8" data-toggle="tab" href="#world-tab-8" role="tab" aria-controls="world-tab-8" aria-selected="false">Government</a>
-                                        <a class="nav-link" id="tab9" data-toggle="tab" href="#world-tab-9" role="tab" aria-controls="world-tab-9" aria-selected="false">Other</a>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content" id="myTabContent">
-
-                                <div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
-                                    <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <!-- Single Blog Post -->
-                                                <div class="single-blog-post">
-                                                    <!-- Post Thumbnail -->
-                                                    <div class="post-thumbnail">
-                                                        <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                        <!-- Catagory -->
-                                                        <div class="post-cta"><a href="#">travel</a></div>
-                                                    </div>
-                                                    <!-- Post Content -->
-                                                    <div class="post-content">
-                                                        <a href="#" class="headline">
-                                                            <h5>Practive Interview Question / Article</h5>
-                                                        </a>
-                                                        <p>Practive Interview Question / Article</p>
-                                                        <!-- Post Meta -->
-                                                        <div class="post-meta">
-                                                            <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-2" role="tabpanel" aria-labelledby="tab2">
-                                    <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <!-- Single Blog Post -->
-                                                <div class="single-blog-post">
-                                                    <!-- Post Thumbnail -->
-                                                    <div class="post-thumbnail">
-                                                        <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                        <!-- Catagory -->
-                                                        <div class="post-cta"><a href="#">travel</a></div>
-                                                    </div>
-                                                    <!-- Post Content -->
-                                                    <div class="post-content">
-                                                        <a href="#" class="headline">
-                                                            <h5>Practive Interview Question / Article</h5>
-                                                        </a>
-                                                        <p>Practive Interview Question / Article</p>
-                                                        <!-- Post Meta -->
-                                                        <div class="post-meta">
-                                                            <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-3" role="tabpanel" aria-labelledby="tab3">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-4" role="tabpanel" aria-labelledby="tab4">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-5" role="tabpanel" aria-labelledby="tab5">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-6" role="tabpanel" aria-labelledby="tab6">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-7" role="tabpanel" aria-labelledby="tab7">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-8" role="tabpanel" aria-labelledby="tab8">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                    </a>
-                                                    <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="world-tab-9" role="tabpanel" aria-labelledby="tab9">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b1.jpg" alt="">
-                                                    <!-- Catagory -->
-                                                    <div class="post-cta"><a href="#">travel</a></div>
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>Practive Interview Question / Article</h5>
-                                                    </a>
-                                                    <p>Practive Interview Question / Article</p>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6">
-                                            <!-- Single Blog Post -->
-                                            {% for post in posts %}
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="/static/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.published_date }}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                {% block content %}
+                {% endblock %}
                 <!-- ========== Sidebar Area ========== -->
                 <div class="col-12 col-md-8 col-lg-4">
                     <div class="post-sidebar-area wow fadeInUpBig" data-wow-delay="0.2s">
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">About Devmi</h5>
+                            <h5 class="title">About devmi</h5>
                             <div class="widget-content">
                                 <p>Devmi is an open and collaborative environment for everyone to engage in the development of themselves and the community.</p>
                             </div>
@@ -656,7 +182,7 @@
                                     <!-- Post Content -->
                                     <div class="post-content">
                                         <a href="#" class="headline">
-                                            <h5 class="mb-0"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
+                                            <h5 class="mb-0"><a href="{% url 'post_detail' pk=post.pk slug=post.slug %}">{{ post.title }}</a></h5>
                                         </a>
                                     </div>
                                 </div>
@@ -700,14 +226,7 @@
                 </div>
             </div>
 
-            <!-- Load More btn -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="load-more-btn mt-50 text-center">
-                        <a href="#" class="btn world-btn">Load More</a>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -732,11 +251,11 @@
                     <div class="footer-single-widget">
                         <ul class="footer-menu d-flex justify-content-between">
                             <li><a href="#">Home</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Gadgets</a></li>
-                            <li><a href="#">Video</a></li>
+                            <li><a href="#">Banking</a></li>
+                            <li><a href="#">Consulting</a></li>
+                            <li><a href="#">Engineering</a></li>
+                            <li><a href="#">Law</a></li>
+                            <li><a href="#">Healthcare</a></li>
                         </ul>
                     </div>
                 </div>
