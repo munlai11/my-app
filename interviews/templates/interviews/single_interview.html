@@ -1,0 +1,87 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% block content %}
+
+
+<!-- ============= Post Content Area ============= -->
+<div class="col-12 col-lg-8">
+    <div class="single-blog-content mb-100">
+        <!-- Post Meta -->
+        <div class="post-meta">
+            <h5>Interview Details</h5>
+        </div>
+        <!-- Post Content -->
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="post-content">
+                    <h5>{{interview.title}}</h5>
+                    <p>{{interview.interview_date}} {{interview.interview_time}}</p>
+                    <!-- Post Meta -->
+                    <p>{{interview.difficulty}}</p>
+
+                    <p href="{% url 'view_profile' pk=interview.author.pk username=interview.author.username %}">Partner 1: {{interview.author}}</p>
+                    {% if user.is_authenticated %}
+                    {% if user == interview.author or user == interview.partner %}
+
+                    <p>Skype 1: {{interview.author.profile.skype}}</p>
+
+                    {% endif %}
+                    {% endif %}
+                    {% if interview.partner != None %}
+                    <p href="{% url 'view_profile' pk=interview.partner.pk username=interview.partner.username %}">Partner 2 {{interview.partner}}</p>
+                    {% else %}
+                    <p href="">Partner 2 {{interview.partner}}</p>
+                    {% endif %}
+
+
+                    {% if user.is_authenticated %}
+                    {% if user == interview.author or user == interview.partner %}
+
+                    <p>Skype 2: {{interview.partner.profile.skype}}</p>
+
+                    {% endif %}
+                    {% endif %}
+
+                    <p>{{interview.industry}} | {{interview.role}} | {{interview.company}}</p>
+
+                    <p>Notes: {{interview.notes}}</p>
+
+                    <div class="post-meta second-part">
+                        <br />
+                        {% if user.is_authenticated %}
+                        {% if user == interview.author or user == interview.partner %}
+
+                        <a href="{% url 'interview_cancel' pk=interview.pk slug=interview.slug %}" class="comment-reply btn world-btn">Cancel</a>
+
+                        {% endif %}
+                        {% endif %}
+                        {% if user.is_authenticated and interview.accepted == False and user != interview.author %}
+                        <a href="{% url 'interview_accept' pk=interview.pk slug=interview.slug %}" class="comment-reply btn world-btn">Accept</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- ============== Related Post ============== -->
+
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <!-- Comment Area Start -->
+
+
+            </div>
+        </div>
+
+        {% endblock %}
+</html>

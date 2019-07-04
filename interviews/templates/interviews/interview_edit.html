@@ -1,0 +1,88 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="title">New Interview</li>
+    </ul>
+    <div class="post-a-comment-area mt-70">
+        <!-- Contact Form -->
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.title.help_text}}
+                        {{form.title}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.interview_date}}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.interview_time}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.difficulty.help_text}}
+                        {{form.difficulty}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.industry.help_text}}
+                        {{form.industry}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.role.help_text}}
+                        {{form.role}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.company.help_text}}
+                        {{form.company}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.notes.help_text}}
+                        {{form.notes}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn world-btn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</html>

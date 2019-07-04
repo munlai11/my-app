@@ -1,4 +1,4 @@
-{% extends "posts/index.html" %}
+﻿{% extends "home/index.html" %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -30,10 +30,12 @@
         <li class="title">Sign Up</li>
     </ul>
     <div class="post-a-comment-area mt-70">
-        <form method="post">
+        <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Sign up</button>
+            <div class="col-12">
+                <button type="submit" class="btn world-btn">Sign Up</button>
+            </div>
         </form>
 
     </div>

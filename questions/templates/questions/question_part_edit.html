@@ -1,0 +1,42 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="title">New Post</li>
+    </ul>
+    <div class="post-a-comment-area mt-70">
+        <!-- Contact Form -->
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.question_part.help_text}}
+                        {{form.question_part}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.answer_part.help_text}}
+                        {{form.answer_part}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn world-btn">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</html>

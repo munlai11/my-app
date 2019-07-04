@@ -1,0 +1,91 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <div class="post-content-area mb-50">
+        <!-- Catagory Area -->
+        <div class="world-catagory-area">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="title">Interview Question</li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#world-tab-1" role="tab" aria-controls="world-tab-1" aria-selected="true">Questions</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="tab2" data-toggle="tab" href="#world-tab-2" role="tab" aria-controls="world-tab-2" aria-selected="false">Answers</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
+
+                            <div class="post-a-comment-area mt-70">
+                                <div class="post-content">
+                                    <div class="post-thumbnail" style="height:50px;">
+                                        {% if question.author.profile.pic.url != "" %}
+                                        <img src="{{question.author.profile.pic.url}}" alt="" style="height:40px;">
+
+                                        {% else %}
+
+                                        <img src="/static/img/blog-img/b10.jpg" alt="" style="height:40px;">
+
+                                        {% endif %}
+                                        <p style="display: inline;"><a href="{% url 'view_profile' pk=question.author.pk username=question.author.username %}" class="post-author">{{question.author}}</a></p>
+                                    </div>
+                                    <h5>{{ question.title }}</h5>
+                                    <p>{{question.industry}} | {{question.company}} | {{question.role}}</p>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta second-part">
+                                        <p>{{question.created_date}}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        {% if user.is_authenticated and user == question.author %}
+                                        <a href="{% url 'question_part_new' pk=question.pk slug=question.slug %}" class="comment-reply btn world-btn">Add</a>
+                                        <a href="{% url 'question_remove' pk=question.pk slug=question.slug %}" class="comment-reply btn world-btn">Delete</a>
+                                        {% endif %}
+                                        <a href="{% url 'like_question' pk=question.pk slug=question.slug %}" class="comment-reply btn world-btn">Like ({{question.likes.count}})</a>
+                                        <br />
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+
+                    {% for part in question.question_parts.all %}
+
+                            <div class="post-a-comment-area mt-70">
+                                <div class="post-content" style="overflow-wrap: break-word; word-wrap:break-word; word-break: break-all; word-break: break-word; hyphens: auto;">
+
+                                    <h6>Question {{ part.question_number }}</h6>
+                                    <p>{{ part.question_part }}</p>
+                                </div>
+                            </div>
+
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade" id="world-tab-2" role="tabpanel" aria-labelledby="tab2">
+                    {% for question in question.question_parts.all %}
+
+                            <div class="post-a-comment-area mt-70">
+                                <div class="post-content">
+                                    <h6>Question {{ question.question_number }}</h6>
+                                    <p>{{ question.answer_part }}</p>
+                                </div>
+                            </div>
+
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+</html>

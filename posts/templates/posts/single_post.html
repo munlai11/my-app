@@ -1,4 +1,4 @@
-﻿{% extends 'posts/index.html' %}
+﻿{% extends 'home/index.html' %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -10,71 +10,90 @@
 
             <!-- ============= Post Content Area ============= -->
             <div class="col-12 col-lg-8">
-                <div class="single-blog-content mb-100">
+                <div class="single-blog-content mb-100" style="word-wrap:break-word;">
                     <!-- Post Meta -->
-                    <div class="post-meta">
-                        <p><a href="#" class="post-author">{{post.author}}</a> on <a href="#" class="post-date">{{post.created_date}}</a></p>
-                    </div>
                     <!-- Post Content -->
+                    <p>{{post.industry}} | {{post.company}} | {{post.role}} </p>
                     <div class="post-content">
+
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail" style="height:50px;">
+                            {% if post.author.profile.pic.url != "" %}
+                            <img src="{{post.author.profile.pic.url}}" alt="" style="height:40px;">
+
+                            {% else %}
+
+                            <img src="/static/img/blog-img/b10.jpg" alt="" style="height:40px;">
+
+                            {% endif %}
+                            <p style="display: inline;"><a href="{% url 'view_profile' pk=post.author.pk username=post.author.username %}" class="post-author">{{post.author}}</a></p>
+                        </div>
+
                         <h5>{{post.title}}</h5>
-                        <h6>{{post.text}}</h6>
+                        <p>{{post.text}}</p>
                         <!-- Post Meta -->
-                        <div class="post-meta second-part">
+                        <div class="post-meta second-part" style="height:50px;">
                             <br />
                             {% if user.is_authenticated and user == post.author %}
                             <a href="{% url 'post_edit' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Edit</a>
                             <a href="{% url 'post_remove' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Delete</a>
                             {% endif %}
+                            <a href="{% url 'like_post' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Like ({{post.likes.count}})</a>
                             <a href="{% url 'add_comment_to_post' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Reply</a>
+                            <p>{{post.created_date}}</p>
                         </div>
                     </div>
-                    {% for comment in comments %}
+                    {% for comment in post.comments.all %}
                     {% if user.is_authenticated or comment.approved_comment %}
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <!-- Comment Area Start -->
-                            <div class="comment_area clearfix mt-70">
-                                <ol>
-                                    <!-- Single Comment Area -->
-                                    <li class="single_comment_area">
-                                        <!-- Comment Content -->
-                                        <div class="comment-content">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-meta d-flex align-items-center justify-content-between">
-                                                <p><a href="#" class="post-author">{{comment.author}}</a> on <a href="#" class="post-date">{{comment.created_date}}</a></p>
-                                                <a href="{% url 'add_comment_to_post' pk=post.pk slug=post.slug%}" class="comment-reply btn world-btn">Reply</a>
-                                            </div>
-                                            <p>{{comment.text}}</p>
-                                            <br />
-                                            {% if user.is_authenticated and user == comment.author %}
-                                            <a href="{% url 'comment_remove' pk=comment.pk slug=post.slug %}" class="comment-reply btn world-btn">Delete</a>
-                                            {% endif %}
-                                        </div>
-                                    </li>
-                                </ol>
-                            </div>
+
+                    <br />
+                    <div class="post-content">
+
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail" style="height:50px;">
+                            {% if comment.author.profile.pic.url != "" %}
+                            <img src="{{comment.author.profile.pic.url}}" alt="" style="height:40px;">
+
+
+                            {% else %}
+
+                            <img src="/static/img/blog-img/b10.jpg" alt="" style="height:40px;">
+
+                            {% endif %}
+                            <p style="display: inline;"><a href="{% url 'view_profile' pk=comment.author.pk username=comment.author.username %}" class="post-author">  {{comment.author}}</a></p>
+                        </div>
+                        <p>{{comment.text}}</p>
+                        <!-- Post Meta -->
+                        <div class="post-meta second-part" style="height:50px;">
+                            <br />
+                            {% if user.is_authenticated and user == comment.author %}
+                            <a href="{% url 'comment_remove' pk=comment.pk slug=post.slug %}" class="comment-reply btn world-btn">Delete</a>
+                            {% endif %}
+                            <a href="{% url 'like_comment' pk=comment.pk %}" class="comment-reply btn world-btn">Like ({{comment.likes.count}})</a>
+                            <a href="{% url 'add_comment_to_post' pk=post.pk slug=post.slug %}" class="comment-reply btn world-btn">Reply</a>
+                            <p>{{post.created_date}}</p>
                         </div>
                     </div>
+
                     {% endif %}
                     {% empty %}
                     {% endfor %}
 
                 </div>
-            </div>
+                    </div>
 
 
 
 
-        <!-- ============== Related Post ============== -->
+                    <!-- ============== Related Post ============== -->
 
-        <div class="row">
-            <div class="col-12 col-lg-8">
-                <!-- Comment Area Start -->
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <!-- Comment Area Start -->
 
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-{% endblock %}
+                    {% endblock %}
 </html>

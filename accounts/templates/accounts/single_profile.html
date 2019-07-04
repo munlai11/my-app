@@ -1,0 +1,183 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <div class="post-content-area mb-50">
+        <!-- Catagory Area -->
+        <div class="world-catagory-area">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="title">{{user_profile.username}}</li>
+
+                {% if user.is_authenticated and user == user_profile %}
+
+                <li class="nav-item">
+                    <a href="{% url 'edit_profile' pk=user.pk username=user.username %}">Edit Profile | </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'edit_details' pk=user.pk username=user.username %}">| Edit Details</a>
+                </li>
+
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#world-tab-1" role="tab" aria-controls="world-tab-1" aria-selected="true">Profile</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="tab2" data-toggle="tab" href="#world-tab-2" role="tab" aria-controls="world-tab-2" aria-selected="false">Posts</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="tab3" data-toggle="tab" href="#world-tab-3" role="tab" aria-controls="world-tab-3" aria-selected="false">Comments</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="tab4" data-toggle="tab" href="#world-tab-4" role="tab" aria-controls="world-tab-4" aria-selected="false">Interviews</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="tab4" data-toggle="tab" href="#world-tab-4" role="tab" aria-controls="world-tab-4" aria-selected="false">Questions</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+
+
+
+                <div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
+                    <div class="col-12 col-lg-8">
+                        <div class="single-blog-content mb-100">
+
+                            <div class="post-content">
+                                <div class="post-thumbnail" style="height:70px;">
+                                    {% if user_profile.profile.pic.url != "" %}
+                                    <img src="{{user_profile.profile.pic.url}}" alt="" style="height:50px;">
+                                    {% else %}
+                                    <img src="/static/img/blog-img/b10.jpg" alt="" style="height:50px;">
+                                    {% endif %}
+                                </div>
+                                <p>First Name: {{user_profile.first_name}}</p>
+                                <p>Last Name: {{user_profile.last_name}}</p>
+                                <p>Bio: {{user_profile.profile.bio}}</p>
+                            </div>
+
+                            </div>
+                    </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="world-tab-2" role="tabpanel" aria-labelledby="tab2">
+                            {% for post in posts_all %}
+                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                                <!-- Post Thumbnail -->
+                                <div class="post-thumbnail">
+                                    <img src="/static/img/blog-img/b10.jpg" alt="">
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content" style="overflow-wrap: break-word; word-wrap:break-word; word-break: break-all; word-break: break-word; hyphens: auto;">
+                                    <a href="#" class="headline">
+                                        <h5><a href="{% url 'post_detail' pk=post.pk slug=post.slug %}">{{ post.title }}</a></h5>
+                                    </a>
+
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p>{{post.industry}} | {{post.role}} | {{post.company}}</p>
+                                        <p><a href="#" class="post-author">{{ post.author }}</a> on <a href="#" class="post-date">{{ post.created_date }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="tab-pane fade" id="world-tab-3" role="tabpanel" aria-labelledby="tab3">
+
+                            <!-- Single Blog Post -->
+                            {% for comment in comments_all %}
+                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                                <!-- Post Thumbnail -->
+                                <div class="post-thumbnail">
+                                    <img src="/static/img/blog-img/b10.jpg" alt="">
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content" style="overflow-wrap: break-word; word-wrap:break-word; word-break: break-all; word-break: break-word; hyphens: auto;">
+                                    <a href="#" class="headline">
+                                        <h5><a href="{% url 'post_detail' pk=comment.post.pk slug=comment.post.slug %}">{{ comment.post.title }}</a></h5>
+                                    </a>
+                                    <p>{{comment.text}}</p>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p>{{comment.post.industry}} | {{comment.post.role}} | {{comment.post.company}}</p>
+                                        <p><a href="#" class="post-author">{{ comment.author }}</a> on <a href="#" class="post-date">{{ comment.created_date }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="tab-pane fade" id="world-tab-4" role="tabpanel" aria-labelledby="tab4">
+
+                            <!-- Single Blog Post -->
+                            {% for interview in interviews_all %}
+                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                                <!-- Post Thumbnail -->
+                                <div class="post-thumbnail">
+                                    <img src="/static/img/blog-img/b10.jpg" alt="">
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content" style="overflow-wrap: break-word; word-wrap:break-word; word-break: break-all; word-break: break-word; hyphens: auto;">
+                                    <a href="#" class="headline">
+                                        <h5><a href="{% url 'interview_detail' pk=interview.pk slug=interview.slug %}">{{ interview.title }}</a></h5>
+                                    </a>
+
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p>{{interview.difficulty}}</p>
+                                        <p>{{interview.industry}} | {{interview.role}} | {{interview.company}}</p>
+                                        <p><a href="#" class="post-author">{{ interview.author }}</a> at <a href="#" class="post-date">{{ interview.interview_time }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="tab-pane fade" id="world-tab-5" role="tabpanel" aria-labelledby="tab5">
+
+                            <!-- Single Blog Post -->
+                            {% for question in questions_all %}
+                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                                <!-- Post Thumbnail -->
+                                <div class="post-thumbnail">
+                                    <img src="/static/img/blog-img/b10.jpg" alt="">
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content" style="overflow-wrap: break-word; word-wrap:break-word; word-break: break-all; word-break: break-word; hyphens: auto;">
+                                    <a href="#" class="headline">
+                                        <h5><a href="{% url 'question_detail' pk=question.pk slug=question.slug %}">{{ question.title }}</a></h5>
+                                    </a>
+
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p>{{question.difficulty}}</p>
+                                        <p>{{question.industry}} | {{question.role}} | {{question.company}}</p>
+                                        <p><a href="#" class="post-author">{{ question.author }}</a> on <a href="#" class="post-date">{{ question.created_date }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                    </div>
+                </div>
+    </div>
+</div>
+{% endblock %}
+
+</html>

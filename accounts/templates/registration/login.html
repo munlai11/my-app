@@ -1,0 +1,46 @@
+﻿{% extends "home/index.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+    {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+<div class="col-12 col-lg-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="title">Login</li>
+    </ul>
+    <div class="post-a-comment-area mt-70">
+        <!-- Contact Form -->
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    {{form.username.label_tag}}
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.username}}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    {{form.password.label_tag}}
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.password}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" value="login" class="btn world-btn">Login</button>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</html>

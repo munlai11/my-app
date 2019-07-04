@@ -1,0 +1,72 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="title">Edit Profile</li>
+    </ul>
+    <div class="post-a-comment-area mt-70">
+        <!-- Contact Form -->
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <h6>First Name</h6>
+                        {{form.first_name}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <h6>Last Name</h6>
+                        {{form.last_name}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <h6>Email</h6>
+                        {{form.email}}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="group">
+                        {{form.pic.help_text}}
+                        {{form.pic}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.dob.help_text}}
+                        {{form.dob}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.bio.help_text}}
+                        {{form.bio}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn world-btn">Edit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</html>

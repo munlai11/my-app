@@ -1,0 +1,58 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<div class="col-12 col-lg-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="title">Edit Profile</li>
+    </ul>
+    <div class="post-a-comment-area mt-70">
+        <!-- Contact Form -->
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.skype.help_text}}
+                        {{form.skype}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.pic.help_text}}
+                        {{form.pic}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.dob.help_text}}
+                        {{form.dob}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="group">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        {{form.bio.help_text}}
+                        {{form.bio}}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn world-btn">Edit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+</html>
