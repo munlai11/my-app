@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.conf.urls import url
 from django.urls import path, include
 from django.contrib.auth import views
 from django.conf import settings
@@ -14,5 +15,6 @@ urlpatterns = [
     path('', include('search.urls')),
     path('', include('interviews.urls')),
     path('', include('comms.urls')),
-    path('', include('home.urls'))
+    path('', include('home.urls')),
+    url(r'^chat/', include('chat.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
