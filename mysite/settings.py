@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'interviews',
     'comms',
     'home',
+    'video',
 ]
 
 MIDDLEWARE = [
