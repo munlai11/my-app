@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myapp',
         'USER': 'postgres',
-        'PASSWORD': 'Alexlai93',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -157,3 +157,7 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
